@@ -30,6 +30,26 @@ export const debug = {
             label: 'Little Soul',
             img: 'https://imgur.com/kj4D4RH.png'
         },
+        {
+            id: 'littlesoul',
+            label: 'Little Soul',
+            img: 'https://imgur.com/kj4D4RH.png'
+        },
+        {
+            id: 'littlesoul',
+            label: 'Little Soul',
+            img: 'https://imgur.com/kj4D4RH.png'
+        },
+        {
+            id: 'littlesoul',
+            label: 'Little Soul',
+            img: 'https://imgur.com/kj4D4RH.png'
+        },
+        {
+            id: 'littlesoul',
+            label: 'Little Soul',
+            img: 'https://imgur.com/kj4D4RH.png'
+        },
     ],
     property: [
         {

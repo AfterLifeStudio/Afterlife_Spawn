@@ -8,6 +8,7 @@ EnterProperty = function(cam,id)
     RenderScriptCams(false, true, 0, true, true)
     SetCamActive(cam, false)
     ClearPedTasks(ped)
+    FreezeEntityPosition(ped,false)
     SetEntityVisible(ped, true,false)
 
 

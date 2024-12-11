@@ -1,21 +1,26 @@
-local Cam = nil
-local currentspawn = 0
 
-RegisterCommand('c', function()
+
+local Cam = nil
+local Currentspawn = 0
+Currentanim = nil
+
+RegisterCommand('copyaxis', function()
     ClearFocus()
     local camRot = GetGameplayCamRot(0)
     local string = string.format("vector3(%f,%f,%f)", camRot.x, camRot.y, camRot.z)
-
+    AnimpostfxStop('CamPushInNeutral')
     Nuimessage('copy', string)
 end)
 
 ---@param data table
-local PreviewCam = function(data)
+PreviewCam = function(data)
     local coords = data.previewcoords
     local rotations = data.previewrotations
     local weeather = data.weather
     local time = data.time
     local spawncoords = data.spawnlocation
+    local anim = data.anim
+
     local ped = PlayerPedId()
 
     SetOverrideWeather(weeather)
@@ -33,16 +38,24 @@ local PreviewCam = function(data)
     SetCamActive(Cam, true)
     RenderScriptCams(true, false, 0, true, true)
 
-    SetEntityCoords(ped, spawncoords.x, spawncoords.y, spawncoords.z, 0.0, 0.0, 0.0, true)
-    SetEntityHeading(ped, spawncoords.z)
-    TaskStartScenarioInPlace(ped, 'WORLD_HUMAN_LEANING_CASINO_TERRACE', -1, false)
+    if spawncoords then
+    SetEntityCoords(ped, spawncoords.x, spawncoords.y, spawncoords.z - 1, 0.0, 0.0, 0.0, true)
+    SetEntityHeading(ped, spawncoords.w)
+    end
+    
+    FreezeEntityPosition(ped, true)
+    if anim then
+        Currentanim = anim
+    end
+    TaskStartScenarioInPlace(ped, anim, -1, false)
     SetEntityVisible(ped, true)
+
+    return Cam
 end
 
-
 local LastLocation = function()
-    QBCore.Functions.GetPlayerData(function(player)
-        ped = PlayerPedId()
+
+    local lastlocation = GetLastLocation()
 
         local data = {
             time = {
@@ -51,21 +64,21 @@ local LastLocation = function()
                 hours = 21,
             },
             weather = 'EXTRASUNNY',
-            previewcoords = vector3(player.position.x, player.position.y, player.position.z + 3),
+            previewcoords = vector3(lastlocation.x, lastlocation.y, lastlocation.z + 3),
             previewrotations = vector3(10.540741, -0.000000, 86.52),
-            spawnlocation = vector4(player.position.x, player.position.y, player.position.z, player.position.w),
+            spawnlocation = vector4(lastlocation.x, lastlocation.y, lastlocation.z, 0),
         }
         PreviewCam(data)
-    end)
+   
 end
 
 
 RegisterNUICallback('preview', function(data, cb)
-    if currentspawn == data.id then return end
+    if Currentspawn == data.id then return end
 
     PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
 
-    currentspawn = data.id
+    Currentspawn = data.id
     local locations = {}
 
     if data.catagory == 'map' then
@@ -76,6 +89,7 @@ RegisterNUICallback('preview', function(data, cb)
         locations = Config.Apartment
     elseif data.catagory == 'lastlocation' then
         LastLocation()
+        goto skip
     end
 
 
@@ -85,6 +99,8 @@ RegisterNUICallback('preview', function(data, cb)
             break
         end
     end
+
+    ::skip::
 
     cb { {} }
 end)
@@ -96,9 +112,9 @@ RegisterNUICallback('play', function(data, cb)
     if (data == 'map' or data == 'lastlocation' or data == 'saved') then
         SpawnPlayer(Cam)
     elseif data == 'apartment' then
-        EnterApartment(cam, currentspawn)
+        EnterApartment(cam, Currentspawn)
     elseif data == 'property' then
-        EnterProperty(cam, currentspawn)
+        EnterProperty(cam, Currentspawn)
     else
         SpawnPlayer(Cam)
     end
@@ -115,15 +131,26 @@ end)
 
 ShowMenu = function(userid, new)
     DisplayRadar(false)
-    TriggerEvent('qb-weathersync:client:DisableSync')
+    DisableWeatherSync()
+
+    if IsPlayerDead() then
+        SpawnDead()
+        return
+    end
+
+    if IsPlayerJailed() then
+        JailMenu()
+        return
+    end
+
+
 
     local data
-
     if new and Config.Apartmentstart then
         data = {
             visible = true,
             catagory = 'apartment',
-            apartment = Config.Apartment
+            apartment = GetAppartmentLocations()
         }
         PreviewCam(Config.Apartment[1])
     else
@@ -132,7 +159,7 @@ ShowMenu = function(userid, new)
             catagory = 'map',
             map = GetMapLocations(),
             property = GetPropertyLocations(userid),
-            saved = GetSavedLocations()
+            saved = GetSavedLocationsUi()
         }
         PreviewCam(Config.Spawn[1])
     end
@@ -151,6 +178,5 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterCommand('test', function()
     local playerdata = QBCore.Functions.GetPlayerData()
-    print(playerdata.citizenid)
     ShowMenu(playerdata.citizenid, false)
 end)

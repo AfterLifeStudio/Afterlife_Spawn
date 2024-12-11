@@ -1,17 +1,60 @@
-
 ---@return table
-GetMapLocations = function ()
+GetMapLocations = function()
     local locationcfg = Config.Spawn
     local options = {}
 
-    for i = 1,#locationcfg do
+    for i = 1, #locationcfg do
         local data = locationcfg[i]
-        options[#options+1] = {
+
+        if data.job == GetPlayerJob() or data.job == false then
+            options[#options + 1] = {
+                id = data.id,
+                label = data.label,
+                img = '../images/' .. data.id .. '.png'
+            }
+        end
+    end
+
+    return options
+end
+
+
+---@return table
+GetAppartmentLocations = function()
+    local locationcfg = Config.Apartment
+    local options = {}
+
+    for i = 1, #locationcfg do
+        local data = locationcfg[i]
+        options[#options + 1] = {
             id = data.id,
             label = data.label,
+            img = '../images/' .. data.id .. '.png'
+        }
+    end
+
+    return options
+end
+
+
+
+---@return table
+GetSavedLocationsUi = function()
+    local locationcfg = GetSavedLocations()
+    local options = {}
+
+    for i = 1, #locationcfg do
+        local data = locationcfg[i]
+
+        options[#options + 1] = {
+            id = data.id,
+            label = data.name,
             img = data.img
         }
     end
 
+    if next(options) == nil then
+        options = false
+    end
     return options
 end
