@@ -32,24 +32,41 @@ export const debug = {
         },
         {
             id: 'littlesoul',
-            label: 'Little Soul',
+            label: 'Maze Bank',
             img: 'https://imgur.com/kj4D4RH.png'
         },
         {
-            id: 'littlesoul',
-            label: 'Little Soul',
-            img: 'https://imgur.com/kj4D4RH.png'
+            id: 'santosbeach',
+            label: 'Santos Beach',
+            img: 'https://imgur.com/5Yyhvou.png'
         },
         {
-            id: 'littlesoul',
-            label: 'Little Soul',
-            img: 'https://imgur.com/kj4D4RH.png'
+            id: 'santosbeach',
+            label: 'Santos Beach',
+            img: 'https://imgur.com/5Yyhvou.png'
         },
         {
-            id: 'littlesoul',
-            label: 'Little Soul',
-            img: 'https://imgur.com/kj4D4RH.png'
+            id: 'santosbeach',
+            label: 'Santos Beach',
+            img: 'https://imgur.com/5Yyhvou.png'
         },
+        {
+            id: 'santosbeach',
+            label: 'Santos Beach',
+            img: 'https://imgur.com/5Yyhvou.png'
+        },
+        {
+            id: 'santosbeach',
+            label: 'Santos Beach',
+            img: 'https://imgur.com/5Yyhvou.png'
+        },
+        {
+            id: 'santosbeach',
+            label: 'Santos Beach',
+            img: 'https://imgur.com/5Yyhvou.png'
+        },
+
+
     ],
     property: [
         {

@@ -42,7 +42,7 @@ PreviewCam = function(data)
     SetEntityCoords(ped, spawncoords.x, spawncoords.y, spawncoords.z - 1, 0.0, 0.0, 0.0, true)
     SetEntityHeading(ped, spawncoords.w)
     end
-    
+
     FreezeEntityPosition(ped, true)
     if anim then
         Currentanim = anim
@@ -124,6 +124,11 @@ end)
 
 RegisterNUICallback('hover', function(data, cb)
     PlaySoundFromEntity(-1, "Cycle_Item", cache.ped, 'DLC_Dmod_Prop_Editor_Sounds', 0, 0)
+    cb { {} }
+end)
+
+RegisterNUICallback('click', function(data, cb)
+    PlaySoundFromEntity(-1, "BACK", cache.ped, "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0)
     cb { {} }
 end)
 

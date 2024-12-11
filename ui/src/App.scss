@@ -94,8 +94,13 @@ body{
 
 .backward{
     position: absolute;
-    margin-left: -3vw;
-    margin-top: 1.7vw;
+    width: 4vw;
+    height: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -4.5vw;
+    margin-top: 1vw;
     svg {
         fill: #f2f2f2;
     }
@@ -103,17 +108,30 @@ body{
 
 .backward:hover{
     svg {
-        fill: #f2f2f2d5;
+        fill: #f2f2f283;
     }
 }
 
 .forward{
     position: relative;
-    top: 1.7vw;
+    width: 4vw;
+    height: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 1vw;
+    right: 0.5vw;
     svg {
         fill: #f2f2f2;
     }
 }
+
+.forward:hover{
+    svg {
+        fill: #f2f2f283;
+    }
+}
+
 
 .location-title {
     margin-top: .3vw;

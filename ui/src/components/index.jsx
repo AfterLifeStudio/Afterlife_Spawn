@@ -66,16 +66,16 @@ function SpawnMenu() {
       max = debug.saved.length;
     }
     setMaxlength(max)
-    if (position + 5 < max) {
+    if (position + 6 <= max) {
       nuicallback('click')
-      setPosition(position + 5);
+      setPosition(position + 6);
     }
   };
 
   const handlebackward = () => {
     if (position > 0) {
       nuicallback('click')
-      setPosition(position - 5);
+      setPosition(position - 6);
     }
   };
 
@@ -256,7 +256,7 @@ function SpawnMenu() {
                     )}
                   </>
                 )}
-                {position + 5 < maxlenght &&
+                {position + 6 < maxlenght &&
                 <div onClick={handleforward} onMouseEnter={() => nuicallback("hover")} className="forward">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
