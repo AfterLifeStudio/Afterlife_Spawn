@@ -1,6 +1,11 @@
 ---@return any
 ---@param userid string
 GetPropertyLocations = function(userid)
+
+    if Config.framework == 'esx' then
+        return  false
+    end
+
     local Properties = lib.callback.await('SpawnMenu:GetOwnedProperty', false, userid)
     local options = {}
 

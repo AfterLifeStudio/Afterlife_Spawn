@@ -2,7 +2,7 @@
 GetMapLocations = function()
     local locationcfg = Config.Spawn
     local options = {}
-
+ 
     for i = 1, #locationcfg do
         local data = locationcfg[i]
 
@@ -43,6 +43,10 @@ GetSavedLocationsUi = function()
     local locationcfg = GetSavedLocations()
     local options = {}
 
+    if locationcfg == nil or next(locationcfg) == nil then
+        return false
+    end
+
     for i = 1, #locationcfg do
         local data = locationcfg[i]
 
@@ -53,8 +57,6 @@ GetSavedLocationsUi = function()
         }
     end
 
-    if next(options) == nil then
-        options = false
-    end
+
     return options
 end

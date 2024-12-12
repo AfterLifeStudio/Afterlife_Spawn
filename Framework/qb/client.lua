@@ -2,7 +2,7 @@ if Config.framework == 'qb' then
     local QBCore = exports['qb-core']:GetCoreObject()
 
     RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new)
-        ShowMenu(cData.citizenid, new)
+        ShowMenu(new, cData.citizenid)
     end)
 
     GetPlayerJob = function()
@@ -26,7 +26,7 @@ if Config.framework == 'qb' then
         return state
     end
 
-    IsPlayerDead = function()
+    IsDead = function()
         local state = false
         QBCore.Functions.GetPlayerData(function(PlayerData)
             if PlayerData.metadata.inlaststand or PlayerData.metadata.isdead then

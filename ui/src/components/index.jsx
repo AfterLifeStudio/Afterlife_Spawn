@@ -115,7 +115,7 @@ function SpawnMenu() {
 
   const lastlocation = () => {
     setLastloc(true);
-    nuicallback("preview", { id: 0, catagory: "lastlocation" });
+    nuicallback("preview", { id: 'last', catagory: "lastlocation" });
   };
 
   useNuiEvent("copy", handlecopy);

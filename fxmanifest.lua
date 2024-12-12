@@ -10,6 +10,7 @@ shared_scripts {
 
 
 client_scripts {
+    '@qbx_core/modules/playerdata.lua',
     'util/util.lua',
     'Framework/qb/client.lua',
     'Framework/esx/client.lua',

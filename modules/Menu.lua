@@ -1,5 +1,3 @@
-
-
 local Cam = nil
 local Currentspawn = 0
 Currentanim = nil
@@ -8,7 +6,6 @@ RegisterCommand('copyaxis', function()
     ClearFocus()
     local camRot = GetGameplayCamRot(0)
     local string = string.format("vector3(%f,%f,%f)", camRot.x, camRot.y, camRot.z)
-    AnimpostfxStop('CamPushInNeutral')
     Nuimessage('copy', string)
 end)
 
@@ -28,19 +25,14 @@ PreviewCam = function(data)
     SetFocusPosAndVel(coords.x, coords.y, coords.z, 0, 0, 0)
     SetEntityVisible(ped, false)
 
-    Cam = CreateCamWithParams('DEFAULT_SCRIPTED_CAMERA', coords.x, coords.y, coords.z, rotations.x, rotations.y,
-        rotations.z, 50.0, true, 0)
-    SetTimecycleModifier('MIDDAY')
-    SetCamUseShallowDofMode(Cam, true)
-    SetCamNearDof(Cam, 0.4)
-    SetCamFarDof(Cam, 1.8)
-    SetCamDofStrength(Cam, 0.7)
+
+    Cam = CreateCamWithParams('DEFAULT_SCRIPTED_CAMERA', coords.x, coords.y, coords.z, rotations.x, rotations.y,rotations.z, 50.0, true, 0)
     SetCamActive(Cam, true)
     RenderScriptCams(true, false, 0, true, true)
 
     if spawncoords then
-    SetEntityCoords(ped, spawncoords.x, spawncoords.y, spawncoords.z - 1, 0.0, 0.0, 0.0, true)
-    SetEntityHeading(ped, spawncoords.w)
+        SetEntityCoords(ped, spawncoords.x, spawncoords.y, spawncoords.z - 1, 0.0, 0.0, 0.0, true)
+        SetEntityHeading(ped, spawncoords.w)
     end
 
     FreezeEntityPosition(ped, true)
@@ -54,23 +46,23 @@ PreviewCam = function(data)
 end
 
 local LastLocation = function()
-
     local lastlocation = GetLastLocation()
 
-        local data = {
-            time = {
-                seconds = 0,
-                minutes = 0,
-                hours = 21,
-            },
-            weather = 'EXTRASUNNY',
-            previewcoords = vector3(lastlocation.x, lastlocation.y, lastlocation.z + 3),
-            previewrotations = vector3(10.540741, -0.000000, 86.52),
-            spawnlocation = vector4(lastlocation.x, lastlocation.y, lastlocation.z, 0),
-        }
-        PreviewCam(data)
-   
+    local data = {
+        time = {
+            seconds = 0,
+            minutes = 0,
+            hours = 21,
+        },
+        weather = 'EXTRASUNNY',
+        previewcoords = vector3(lastlocation.x, lastlocation.y, lastlocation.z + 3),
+        previewrotations = vector3(10.540741, -0.000000, 86.52),
+        spawnlocation = vector4(lastlocation.x, lastlocation.y, lastlocation.z, 0),
+    }
+    PreviewCam(data)
 end
+
+
 
 
 RegisterNUICallback('preview', function(data, cb)
@@ -134,11 +126,14 @@ end)
 
 
 
-ShowMenu = function(userid, new)
-    DisplayRadar(false)
+ShowMenu = function(new, userid)
+    if Config.framework == 'esx' then
+        Updatelastlocation()
+    end
+
     DisableWeatherSync()
 
-    if IsPlayerDead() then
+    if IsDead() then
         SpawnDead()
         return
     end
@@ -178,10 +173,10 @@ ShowMenu = function(userid, new)
     Nuimessage('visible', data)
 end
 
+exports('ShowMenu', ShowMenu)
 
-local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterCommand('test', function()
-    local playerdata = QBCore.Functions.GetPlayerData()
-    ShowMenu(playerdata.citizenid, false)
+
+RegisterCommand('test', function(xPlayer)
+    ShowMenu(false)
 end)
