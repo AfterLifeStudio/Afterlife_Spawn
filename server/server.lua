@@ -1,8 +1,6 @@
 
 lib.callback.register('SpawnMenu:GetOwnedProperty', function(source,userid)
-    local next = next
     local properties = MySQL.query.await('SELECT * FROM player_houses WHERE citizenid = ?', { userid })
-
     if next(properties) == nil then
         properties = false
     end

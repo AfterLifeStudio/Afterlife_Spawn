@@ -35,6 +35,10 @@ if Config.framework == 'qbx' then
         return state
     end
 
+    PlayerInResidence = function ()
+        return false
+    end
+
     DisableWeatherSync = function()
         TriggerEvent('qb-weathersync:client:DisableSync')
     end

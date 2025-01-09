@@ -32,6 +32,11 @@ if Config.framework == 'esx' then
         return state
     end
 
+    PlayerInResidence = function ()
+        return false
+    end
+
+
     DisableWeatherSync = function ()
    
     end

@@ -35,13 +35,15 @@ SpawnDead = function()
     FrameworkSpawn()
 end
 
-
 FrameworkSpawn = function()
-    AnimpostfxPlay('SwitchSceneMichael',2000,false)
+    AnimpostfxPlay('SwitchSceneMichael', 2000, false)
     PlaySoundFromEntity(-1, "1st_Person_Transition", cache.ped, 'PLAYER_SWITCH_CUSTOM_SOUNDSET', 0, 0)
     EnableWeatherSync()
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
-    TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
-    TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
+    local state = PlayerInResidence()
+    if state then
+        TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
+        TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
+    end
 end

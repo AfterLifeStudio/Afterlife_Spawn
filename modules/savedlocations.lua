@@ -1,3 +1,5 @@
+if not Config.SavedLocations then return end
+
 local mode = 'new'
 local editingid = ''
 

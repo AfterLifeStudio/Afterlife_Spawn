@@ -159,7 +159,7 @@ ShowMenu = function(new, userid)
             catagory = 'map',
             map = GetMapLocations(),
             property = GetPropertyLocations(userid),
-            saved = GetSavedLocationsUi()
+            saved = Config.SavedLocations and GetSavedLocationsUi() or false
         }
         PreviewCam(Config.Spawn[1])
     end
@@ -177,6 +177,9 @@ exports('ShowMenu', ShowMenu)
 
 
 
-RegisterCommand('test', function(xPlayer)
-    ShowMenu(false)
-end)
+-- RegisterCommand('test', function(xPlayer)
+--     local QBCore = exports['qb-core']:GetCoreObject()
+--     local player = QBCore.Functions.GetPlayerData()
+
+--     ShowMenu(false,player.citizenid)
+-- end)

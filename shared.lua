@@ -13,6 +13,8 @@ end
 Config.framework = GetFramework() -- qb / esx /qbox
 
 Config.Apartmentstart = true
+Config.SavedLocations = false
+
 
 
 
