@@ -1,5 +1,3 @@
-
-
 SpawnPlayer = function(cam)
     local ped = PlayerPedId()
 
@@ -20,7 +18,6 @@ end
 
 
 SpawnDead = function()
-
     local lastlocation = GetLastLocation()
     local ped = PlayerPedId()
 
@@ -36,8 +33,10 @@ SpawnDead = function()
 end
 
 FrameworkSpawn = function()
-    AnimpostfxPlay('SwitchSceneMichael', 2000, false)
-    PlaySoundFromEntity(-1, "1st_Person_Transition", cache.ped, 'PLAYER_SWITCH_CUSTOM_SOUNDSET', 0, 0)
+    if Config.spawneffect then
+        AnimpostfxPlay('SwitchSceneMichael', 2000, false)
+        PlaySoundFromEntity(-1, "1st_Person_Transition", cache.ped, 'PLAYER_SWITCH_CUSTOM_SOUNDSET', 0, 0)
+    end
     EnableWeatherSync()
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')

@@ -20,8 +20,11 @@ PreviewCam = function(data)
 
     local ped = PlayerPedId()
 
-    SetOverrideWeather(weeather)
-    NetworkOverrideClockTime(time.hours, time.minutes, time.seconds)
+    if Config.weathertime then
+        SetOverrideWeather(weeather)
+        NetworkOverrideClockTime(time.hours, time.minutes, time.seconds)
+    end
+
     SetFocusPosAndVel(coords.x, coords.y, coords.z, 0, 0, 0)
     SetEntityVisible(ped, false)
 

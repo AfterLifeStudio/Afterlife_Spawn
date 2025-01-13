@@ -15,8 +15,8 @@ Config.framework = GetFramework() -- qb / esx /qbox
 Config.Apartmentstart = true
 Config.SavedLocations = false
 
-
-
+Config.weathertime = true
+Config.spawneffect = true
 
 Config.defualtsaved = { ------default configuration for players personal saved locations
     anim = 'WORLD_HUMAN_DRINKING',
