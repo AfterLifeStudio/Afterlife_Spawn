@@ -28,7 +28,7 @@ if Config.framework == 'qbx' then
     IsDead = function()
         local state = false
 
-        if QBX.PlayerData.metadata.inlaststand or PlayerData.metadata.isdead then
+        if QBX.PlayerData.metadata.inlaststand or QBX.PlayerData.metadata.isdead then
             state = true
         end
 
